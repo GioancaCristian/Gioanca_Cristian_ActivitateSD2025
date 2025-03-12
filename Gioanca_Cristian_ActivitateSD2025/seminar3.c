@@ -38,7 +38,7 @@ void adaugaMasinaInVector(Masina** masini, int* nrMasini, Masina masinaNoua) {
 		aux[i] = (*masini)[i];
 	}
 	aux[(*nrMasini)] = masinaNoua;
-	free((*masini));
+	free(*masini);
 	(*masini) = aux;
 	(*nrMasini)++;
 
@@ -55,11 +55,11 @@ Masina citireMasinaFisier(FILE* file) {
 	m.nrUsi = atoi(strtok(NULL,delim));
 	m.pret = atof(strtok(NULL, delim));
 	aux = strtok(NULL, delim);
-	m.model = malloc(sizeof(aux) + 1);
-	strcpy_s(m.model, sizeof(aux) + 1, aux);
+	m.model = malloc(strlen(aux) + 1);
+	strcpy_s(m.model, strlen(aux) + 1, aux);
 	aux = strtok(NULL, delim);
-	m.numeSofer = malloc(sizeof(aux) + 1);
-	strcpy_s(m.numeSofer, sizeof(aux) + 1, aux);
+	m.numeSofer = malloc(strlen(aux) + 1);
+	strcpy_s(m.numeSofer, strlen(aux) + 1, aux);
 	m.serie = strtok(NULL, delim)[0];
 	return m;
 }
@@ -69,8 +69,8 @@ Masina* citireVectorMasiniFisier(const char* numeFisier, int* nrMasiniCitite) {
 	Masina* masini = NULL;
 	while (!feof(f))
 	{
-		Masina m = citireMasinaFisier(f);
-		adaugaMasinaInVector((&masini), nrMasiniCitite, m);
+		Masina mas = citireMasinaFisier(f);
+		adaugaMasinaInVector((&masini), nrMasiniCitite, mas);
 	}
 	fclose(f);
 	return masini;
