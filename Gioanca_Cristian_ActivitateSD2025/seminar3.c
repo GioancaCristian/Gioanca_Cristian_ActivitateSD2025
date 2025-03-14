@@ -18,7 +18,7 @@ typedef struct StructuraMasina Masina;
 
 void afisareMasina(Masina masina) {
 	printf("ID : %d \n Nr Usi: %d \n Pret: %.2f \n Model: %s \n Nume Sofer: %s \n Serie : %c", masina.id, masina.nrUsi, masina.pret, masina.model, masina.numeSofer, masina.serie);
-
+	printf("\n");
 }
 
 void afisareVectorMasini(Masina* masini, int nrMasini) {
@@ -32,16 +32,15 @@ void afisareVectorMasini(Masina* masini, int nrMasini) {
 }
 
 void adaugaMasinaInVector(Masina** masini, int* nrMasini, Masina masinaNoua) {
-	Masina* aux = (Masina*)malloc(sizeof(Masina) * (*nrMasini) + 1);
+	Masina* aux = (Masina*)malloc(sizeof(Masina) * ((*nrMasini) + 1));
 	for (int i = 0; i < (*nrMasini); i++)
 	{
 		aux[i] = (*masini)[i];
 	}
 	aux[(*nrMasini)] = masinaNoua;
-	free(*masini);
+	free((*masini));
 	(*masini) = aux;
 	(*nrMasini)++;
-
 }
 
 Masina citireMasinaFisier(FILE* file) {
